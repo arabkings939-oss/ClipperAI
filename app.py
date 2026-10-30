@@ -2,6 +2,8 @@
 import os, re, subprocess, tempfile
 from pathlib import Path
 import streamlit as st
+if "generate_count" not in st.session_state:
+    st.session_state.generate_count = 0
 import yt_dlp
 from faster_whisper import WhisperModel
 
@@ -104,7 +106,12 @@ def write_srt(segs,a,b,path):
 ready = video is not None if source == "Upload video" else bool(url.strip())
 
 if st.button("✨ GENERATE AI CLIPS", disabled=not ready):
-    try:
+    try:     if st.session_state.generate_count >= 
+    5:
+        st.warning("Batas 5 Generate sudah habis. Coba lagi di sesi berikutnya.")
+        st.stop()
+
+    st.session_state.generate_count += 1
         with st.spinner("Menyiapkan video..."):
             work=Path(tempfile.mkdtemp(prefix="clipperai_"))
             src=work/"source_video.mp4"

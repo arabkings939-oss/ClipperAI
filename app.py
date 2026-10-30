@@ -106,21 +106,26 @@ def write_srt(segs,a,b,path):
 ready = video is not None if source == "Upload video" else bool(url.strip())
 
 if st.button("✨ GENERATE AI CLIPS", disabled=not ready):
-    try:     if st.session_state.generate_count >= 
-    5:
+    if st.session_state.generate_count >= 5:
         st.warning("Batas 5 Generate sudah habis. Coba lagi di sesi berikutnya.")
         st.stop()
 
     st.session_state.generate_count += 1
+
+    try:
         with st.spinner("Menyiapkan video..."):
-            work=Path(tempfile.mkdtemp(prefix="clipperai_"))
-            src=work/"source_video.mp4"
+            work = Path(tempfile.mkdtemp(prefix="clipperai_"))
+            src = work / "source_video.mp4"
 
             if source == "Upload video":
-                src.write_bytes(video.getvalue())
+                
+src.write_bytes(video.getvalue())
             else:
-                if not re.match(r"^https?://(www\.)?(youtube\.com|youtu\.be)/", url.strip()):
-                    st.error("Masukkan link YouTube yang valid.")
+                if not 
+re.match(r"^https?://(www\.)?(youtube\
+.com|youtu\.be)/", url.strip()):
+                    st.error("Masukkan 
+link YouTube yang valid.")
                     st.stop()
 
                 options = {
@@ -132,9 +137,9 @@ if st.button("✨ GENERATE AI CLIPS", disabled=not ready):
                 }
 
                 with yt_dlp.YoutubeDL(options) as ydl:
-                      ydl.download([url.strip()])
+                ydl.download([url.strip()])
 
-            if not src.exists():
+                if not src.exists():
                 st.error("Video gagal diunduh atau tidak ditemukan.")
                 st.stop()
 

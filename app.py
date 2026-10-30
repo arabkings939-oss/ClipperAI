@@ -117,10 +117,12 @@ if st.button("✨ GENERATE AI CLIPS", disabled=not ready):
                     st.stop()
 
                 options={
-                    "format":"best[ext=mp4]/best",
-                    "outtmpl":str(src),
-                    "noplaylist":True,
-                    "quiet":True
+    "format":"bv*+ba/b",
+    "merge_output_format":"mp4",
+    "outtmpl":str(src),
+    "noplaylist":True,
+    "quiet":True
+}
                 }
                 with yt_dlp.YoutubeDL(options) as ydl:
                     ydl.download([url.strip()])

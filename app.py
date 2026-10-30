@@ -123,8 +123,7 @@ if st.button("✨ GENERATE AI CLIPS", disabled=not ready):
     "noplaylist":True,
     "quiet":True
 }
-                }
-                with yt_dlp.YoutubeDL(options) as ydl:
+with yt_dlp.YoutubeDL(options) as ydl:
                     ydl.download([url.strip()])
 
             if not src.exists():
